@@ -12,7 +12,12 @@ const mutations = {
     state.currentSession = val;
   },
   SET_HISTRY_CACHE(state, val) {
-    state.histryCache = val;
+    if (val.type === 1) {
+      state.histryCache.push(val.mesg);
+    } else {
+      state.histryCache = val
+    }
+    // state.histryCache = val;
   }
 }
 

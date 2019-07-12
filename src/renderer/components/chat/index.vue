@@ -6,23 +6,24 @@
                 <el-input placeholder="搜索" v-model="searchVal" size="mini"></el-input>
                 <el-button size="mini">+</el-button>
               </template>
-              <template v-slot:user>
+              <template v-slot:user v-if="userList && userList.length">
                 <user-item :user='item' v-for="(item, index) in userList" :key="`user${index}`"></user-item>
               </template>
             </common-user-list>
         </div>
         <div class="right">
-            right
+            <chat-room></chat-room>
         </div>
     </div>
 </template>
 <script>
 import commonUserList from '@/components/common/common-user-list';
+import chatRoom from '../chatroom'
 import userItem from './user-item';
 import { mapState } from 'vuex';
 export default {
   components: {
-    commonUserList, userItem
+    commonUserList, userItem, chatRoom
   },
   data() {
     return {
@@ -31,6 +32,12 @@ export default {
   },
   computed: {
     ...mapState('userList', ['userList'])
+  },
+  beforeRouteEnter (to, from, next) {
+    // ...
+    next(vm => {
+      vm.$electron.ipcRenderer.send('dealCache', {type: 1, key: 'userList'});
+    });
   }
 }
 </script>

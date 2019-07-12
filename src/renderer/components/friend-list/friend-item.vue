@@ -1,5 +1,5 @@
 <template>
-  <div class="friend" @click="handlerClick" :class="isActive ? 'active' : ''">
+  <div class="friend" @click="handlerClick(item)" :class="isActive ? 'active' : ''">
     <div class="icon">
       <img :src="item.src"/>
     </div>
@@ -19,7 +19,8 @@ export default {
     }
   },
   methods: {
-    handlerClick() {
+    handlerClick(item) {
+      console.log(item, 'item');
       this.$store.dispatch('friend/SET_SELECT_USER', item);
     }
   }
@@ -36,6 +37,9 @@ export default {
     padding: 14px;
   }
   &:hover{
+    background-color: rgb(215, 216, 218);
+  }
+  &.active{
     background-color: rgb(215, 216, 218);
   }
   .icon{

@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import socketIo from './utils/socket'
   export default {
     name: 'my-project',
     created() {
@@ -17,6 +18,10 @@
         }
       });
       this.$store.dispatch('friend/GET_USER_LIST', {});
+      const Io = new socketIo({
+        url: 'ws://localhost:3000',
+        cb: () => {}
+      })
     }
   }
 </script>

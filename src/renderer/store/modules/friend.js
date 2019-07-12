@@ -14,6 +14,7 @@ const mutations = {
 
 const actions = {
   SET_SELECT_USER ({ commit }, params) {
+    console.log(params, '>>>>>');
     commit('SET_SELECT_USER', params);
   },
   GET_USER_LIST ({ commit }, params) {
