@@ -19,7 +19,7 @@ import socketIo from './utils/socket'
       });
       this.$store.dispatch('friend/GET_USER_LIST', {});
       const Io = new socketIo({
-        url: 'ws://localhost:3000',
+        url: 'ws://129.211.144.121:3000',
         cb: () => {}
       })
     }

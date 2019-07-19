@@ -7,7 +7,7 @@ export default class SocketIo{
     this.init();
   }
   init() {
-    this.ws = new WebSocket(this.url, userId);
+    this.ws = new WebSocket(this.url, 1944821630);
     this.ws.onopen = () => {
       console.log('链接成功');
       this.ws.send(JSON.stringify({'userId': 1944821630, type: 'join'}));
