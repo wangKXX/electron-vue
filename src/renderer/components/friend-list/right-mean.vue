@@ -2,7 +2,7 @@
   <div class="right-mean">
     <div class="userinfo">
       <div class="ico">
-        <img :src="selectUser.src">
+        <img :src="selectUser.icon | urlPatten">
       </div>
       <div class="nick">{{ selectUser.nick }}</div>
       <el-button type="success" @click="handlerClick(selectUser)">发消息</el-button>
@@ -22,15 +22,20 @@ export default {
       userinfo = {
         id: userinfo.id,
         nick: userinfo.nick,
-        src: userinfo.src,
+        icon: userinfo.icon,
         lastMsg: {
           date: new Date(),
           content: ''
         }
       };
       this.SET_CURRENT_SESSION(userinfo);
+      // this.$store.dispatch("userList/ADD_USER_LIST", data);
       this.$electron.ipcRenderer.send('dealCache', {type: 2, key: 'userList', data: userinfo});
-      this.$router.push({name: 'chat'});
+      this.$electron.ipcRenderer.send("dealCache", {
+        type: 1,
+        key: "userList"
+      });
+      this.$router.push({path: '/chat'});
     }
   },
 }

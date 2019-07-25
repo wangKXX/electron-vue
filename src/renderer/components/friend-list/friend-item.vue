@@ -1,7 +1,7 @@
 <template>
   <div class="friend" @click="handlerClick(item)" :class="isActive ? 'active' : ''">
     <div class="icon">
-      <img :src="item.src"/>
+      <img :src="item.icon | urlPatten"/>
     </div>
     <div class="nick">
       {{ item.nick }}
@@ -12,6 +12,11 @@
 import { mapState } from 'vuex';
 export default {
   props: ['item'],
+  filters: {
+    urlPatten(val) {
+      return `http://localhost:3000/${val}`;
+    }
+  },
   computed: {
     ...mapState('friend', ['selectUser']),
     isActive() {

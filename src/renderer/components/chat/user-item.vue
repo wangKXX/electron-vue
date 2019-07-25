@@ -1,7 +1,7 @@
 <template>
   <div class="user-item" @click="openChat(user.id)" :class="isActive ? 'active' : ''">
     <div class="user-icon">
-      <img :src="user.src"/>
+      <img :src="user.icon | urlPatten"/>
     </div>
     <div class="user-msg">
       <div class="user-name">
@@ -16,6 +16,11 @@
 import { mapState } from 'vuex';
 export default {
   props: ['user'],
+  filters: {
+    urlPatten(val) {
+      return `http://localhost:3000/${val}`;
+    }
+  },
   data() {
     return {}
   },
@@ -68,6 +73,7 @@ export default {
     flex: none;
     img{
       width: 100%;
+      height: 100%;
       display: block;
     }
   }

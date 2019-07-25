@@ -12,7 +12,8 @@
             </common-user-list>
         </div>
         <div class="right">
-            <chat-room></chat-room>
+            <div class="empty" v-if="!currentSession">暂无聊天记录</div>
+            <chat-room v-else></chat-room>
         </div>
     </div>
 </template>
@@ -31,7 +32,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('userList', ['userList'])
+    ...mapState('userList', ['userList', 'currentSession']),
   },
   beforeRouteEnter (to, from, next) {
     // ...
@@ -50,11 +51,22 @@ export default {
     
     .left{
         width: 250px;
+        height: 100%;
         flex: none;
         background-color: rgb(235, 233, 232);
     }
     .right{
         width: 100%;
+        height: 100%;
+        .empty{
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px;
+          color: #999;
+        }
     }
 }
 </style>

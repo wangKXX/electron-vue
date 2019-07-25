@@ -24,16 +24,20 @@ export default {
     }
   },
   computed: {
-    ...mapState('userList', ['currentSession', 'histryCache'])
+    ...mapState('userList', ['currentSession', 'histryCache']),
+    ...mapState('userInfo', ['userInfo'])
   },
   methods: {
     ...mapActions('userList', ['SET_HISTRY_CACHE']),
     handlerMessage() {
+      const { id, nick, icon, des } = this.userInfo[0];
+      console.log(this.userInfo);
       const message = {
         user: {
-          id: 1944821630,
-          nick: 'carol',
-          src: 'https://pic.qqtn.com/up/2016-1/2016010609094834279.jpg'
+          id,
+          nick,
+          icon,
+          des
         },
         mesg: {
           time: new Date(),
@@ -46,6 +50,7 @@ export default {
       });
       console.log(this.currentSession.id, '888888');
       this.$electron.ipcRenderer.send('dealCache', {type: 2, key: this.currentSession.id, data: message});
+      this.msg = '';
     }
   },
 }
@@ -81,6 +86,18 @@ export default {
     padding: 5px;
     box-sizing: border-box;
     padding-top: 0;
+    textarea{
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 8px;
+      resize: none;
+      border: 0;
+      outline: none;
+      font-size: 18px;
+      overflow-y: auto;
+      text-align: justify;
+    }
   }
 }
 </style>

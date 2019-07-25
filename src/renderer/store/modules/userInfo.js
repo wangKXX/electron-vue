@@ -1,9 +1,5 @@
 const state = {
-  userInfo: {
-    id: 1944821630,
-    nick: 'carol',
-    src: 'https://pic.qqtn.com/up/2016-1/2016010609094834279.jpg'
-  }
+  userInfo: {}
 }
 
 const mutations = {
@@ -15,6 +11,9 @@ const mutations = {
 const actions = {
   SET_USER_INFO ({ commit }, params) {
     commit('SET_USER_INFO', params);
+  },
+  clearUserInfo({ state }) {
+    state.userInfo = {}
   }
 }
 

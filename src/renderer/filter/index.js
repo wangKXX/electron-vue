@@ -11,6 +11,9 @@ const filters = {
     } else {
       return `${dealDate.getMonth() + 1}/${dealDate.getDay()}`;
     }
+  },
+  urlPatten(val) {
+    return `http://localhost:3000/${val}`;
   }
 };
 

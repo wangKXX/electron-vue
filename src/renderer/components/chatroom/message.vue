@@ -4,7 +4,7 @@
   {{item.mesg.content}}
   </div>
   <div class="icon">
-    <img :src="item.user.src">
+    <img :src="item.user.icon | urlPatten">
   </div>
   </div>
   <div :class="['message']" v-else>
@@ -23,7 +23,7 @@ export default {
   computed: {
     ...mapState('userInfo', ['userInfo']),
     isSelf() {
-      return this.item.user.id = this.userInfo.id;
+      return this.item.user.id = this.userInfo[0].id;
     }
   },
 }
@@ -42,6 +42,10 @@ export default {
       width: 100%;
       height: 100%;
     }
+  }
+  .content{
+    max-width: 300px;
+    word-wrap:break-word;
   }
 }
 .self{

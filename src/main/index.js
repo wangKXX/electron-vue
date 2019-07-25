@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'development') {
 let mainWindow
 // let child
 const winURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080`
+  ? `http://localhost:9080/#/chat`
   : `file://${__dirname}/index.html`
 // const winURL = 'http://localhost:9080'
 function createWindow () {
@@ -117,6 +117,7 @@ ipcMain.on('initCache', (e, args) => {
 });
 
 ipcMain.on('dealCache', (event, args) => {
+  console.log(args)
   const { type, key, data } = args;
   switch(type) {
     case 1: // 获取缓存数据

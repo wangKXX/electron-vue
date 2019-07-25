@@ -3,29 +3,6 @@
     <router-view></router-view>
   </div>
 </template>
-
-<script>
-import socketIo from './utils/socket'
-  export default {
-    name: 'my-project',
-    created() {
-      this.$electron.ipcRenderer.send('initCache', '1944821630');
-      this.$electron.ipcRenderer.send('dealCache', {type: 1, key: 'userList'});
-      this.$electron.ipcRenderer.on('dealCacheResp', (e, args) => {
-        const { key, data } = args;
-        if (key === 'userList') {
-          this.$store.dispatch('userList/SET_USER_LIST', data);
-        }
-      });
-      this.$store.dispatch('friend/GET_USER_LIST', {});
-      const Io = new socketIo({
-        url: 'ws://129.211.144.121:3000',
-        cb: () => {}
-      })
-    }
-  }
-</script>
-
 <style>
   /* CSS */
   html,body,#app{
