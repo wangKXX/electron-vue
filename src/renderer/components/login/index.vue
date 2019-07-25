@@ -104,7 +104,7 @@ export default {
       });
       // this.$store.dispatch("friend/GET_USER_LIST");
       const Io = new socketIo({
-        url: "ws://129.211.144.121:3000",
+        url: "ws://10.45.215.172:3000",
         cb: () => {}
       });
       const result = await this.Api.getUserList(userId);
