@@ -36,7 +36,8 @@ export default {
       const userinfo = {
         id: user.id,
         nick: user.nick,
-        src: user.src,
+        icon: user.src,
+        des: user.des,
         lastMsg: {
           date: new Date(),
           content: ''

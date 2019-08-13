@@ -47,7 +47,6 @@
   </div>
 </template>
 <script>
-import socketIo from "../../utils/socket";
 import headerBack from "../common/header-back";
 import topMean from "../common/common-header"
 export default {
@@ -79,7 +78,6 @@ export default {
           if (status === 0) {
             // 从后段获取userInfo信息写入本地
             this.created(number);
-            console.log('login')
             this.$electron.ipcRenderer.send("dealCache", {
               type: 2,
               key: "userInfo",
@@ -97,33 +95,21 @@ export default {
       });
     },
     register() {
-      // this.$refs[formName].resetFields();
-      // this.$electron.ipcRenderer.send('openWin', {url: '/register'});
       this.$router.push({ path: "/register" });
     },
     async created(userId) {
-      //const userId = localStorage.getItem('userInfo')
       this.$electron.ipcRenderer.send("initCache", userId);
       this.$electron.ipcRenderer.send("dealCache", {
         type: 1,
         key: "userList"
       });
-      // this.$store.dispatch("friend/GET_USER_LIST");
-      const Io = new socketIo({
-        url: "ws://10.45.208.141:3030",
-        userId,
-        cb: () => {}
-      });
-      window.Io = Io;
       const result = await this.Api.getUserList(userId);
-      console.log(result, 'res')
       const {
             data: { status, message, data }
           } = result;
       if (status === 0) {
         this.$store.dispatch("friend/SET_USER_LIST", data);
       }
-      console.log(userId);
     }
   }
 };

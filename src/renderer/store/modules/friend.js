@@ -22,7 +22,6 @@ const actions = {
     commit('SET_USER_LIST', params)
   },
   clearFriend({ state }) {
-    state.friendList = [];
     state.selectUser = {};
   }
 }

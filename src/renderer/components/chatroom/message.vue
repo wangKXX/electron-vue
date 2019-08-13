@@ -1,54 +1,66 @@
 <template>
   <div :class="['message', 'self']" v-if="isSelf">
-  <div class="content">
-  {{item.mesg.content}}
-  </div>
-  <div class="icon">
-    <img :src="item.user.icon | urlPatten">
-  </div>
+    <div class="content">{{item.mesg.content}}</div>
+    <div class="icon">
+      <img :src="item.user.icon | urlPatten" />
+    </div>
   </div>
   <div :class="['message']" v-else>
-  <div class="icon">
-    <img :src="item.user.src">
-  </div>
-  <div class="content">
-  {{item.mesg.content}}
-  </div>
+    <div class="icon">
+      <img :src="item.re.icon" />
+    </div>
+    <div class="content">{{item.mesg.content}}</div>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
-  props: ['item'],
+  props: ["item"],
   computed: {
-    ...mapState('userInfo', ['userInfo']),
+    ...mapState("userInfo", ["userInfo"]),
     isSelf() {
-      return this.item.user.id = this.userInfo[0].id;
+      return (this.item.user.id = this.userInfo[0].id);
     }
-  },
-}
+  }
+};
 </script>
 <style lang="scss" scoped>
-.message{
+.message {
   display: flex;
   width: 100%;
   box-sizing: border-box;
   padding: 8px;
-  .icon{
+  .icon {
     height: 45px;
     width: 45px;
     flex: none;
-    img{
+    img {
       width: 100%;
       height: 100%;
     }
   }
-  .content{
+  .content {
     max-width: 300px;
-    word-wrap:break-word;
+    word-wrap: break-word;
+    background-color: rgb(176, 228, 110);
+    padding: 8px;
+    border-radius: 5px;
+    position: relative;
+    margin: 0 12px;
+  }
+  .content:before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: -12px;
+    width: 0;
+    height: 0;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent rgb(176, 228, 110);
   }
 }
-.self{
+.self {
   justify-content: flex-end;
 }
 </style>

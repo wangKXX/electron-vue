@@ -13,6 +13,7 @@
     </div>
 </template>
 <script>
+import socketIo from "../utils/socket";
 import mean from '@/components/mean'
 import commonHeader from '@/components/common/common-header'
 import { mapState, mapActions } from 'vuex';
@@ -30,13 +31,20 @@ export default {
     this.$electron.ipcRenderer.send('dealCache', {type: 1, key: 'userInfo'});
     this.$electron.ipcRenderer.on("dealCacheResp", (e, args) => {
         const { key, data } = args;
-        if (key === "userInfo") {
+        if (key === "userInfo") { // 用户信息
             this.$store.dispatch("userInfo/SET_USER_INFO", data);
         }
-        if (key === "userList") {
+        const userId = this.userInfo.id;
+        const Io = new socketIo({
+            url: "ws://10.45.208.141:3030",
+            userId,
+            cb: () => {}
+        });
+        window.Io = Io;
+        if (key === "userList") { // 获取历史记录列表
           this.$store.dispatch("userList/SET_USER_LIST", data);
           console.log(data, 'data');
-          const currentSession = data ? data[0] : null;
+          const currentSession = data ? data.slice(-1)[0] : null;
           this.$store.dispatch("userList/SET_CURRENT_SESSION", currentSession);
         }
     });

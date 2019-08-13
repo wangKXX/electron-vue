@@ -3,7 +3,7 @@
     <li
       v-for="(item, index) in meanData"
       :key="`mean${index}`"
-      :class="[item.icon, isActive === index ? 'active' : '']"
+      :class="[item.icon, $route.path === item.path ? 'active' : '']"
       @click="openPath(item.path, index)"
     ></li>
   </ul>
@@ -25,8 +25,7 @@ export default {
           path: "/showtime",
           icon: "el-icon-orange"
         }
-      ],
-      isActive: 0
+      ]
     };
   },
   methods: {
