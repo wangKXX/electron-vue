@@ -114,6 +114,7 @@ export default {
         userId,
         cb: () => {}
       });
+      window.Io = Io;
       const result = await this.Api.getUserList(userId);
       console.log(result, 'res')
       const {

@@ -43,12 +43,15 @@ export default {
           time: new Date(),
           content: this.msg
         }
-      }
+      };
       this.SET_HISTRY_CACHE({
         type: 1,
         mesg: message
       });
-      console.log(this.currentSession.id, '888888');
+      window.Io.send(JSON.stringify({
+        type: 'mesg',
+        mesg: message
+      }))
       this.$electron.ipcRenderer.send('dealCache', {type: 2, key: this.currentSession.id, data: message});
       this.msg = '';
     }
