@@ -110,7 +110,7 @@ export default {
       });
       // this.$store.dispatch("friend/GET_USER_LIST");
       const Io = new socketIo({
-        url: "ws://10.45.215.172:3030",
+        url: "ws://10.45.208.141:3030",
         userId,
         cb: () => {}
       });
