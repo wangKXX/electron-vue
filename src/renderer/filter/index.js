@@ -13,7 +13,7 @@ const filters = {
     }
   },
   urlPatten(val) {
-    return `http://localhost:3000/${val}`;
+    return `http://10.45.208.141:3000/${val}`;
   }
 };
 
