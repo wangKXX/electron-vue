@@ -1,5 +1,10 @@
 <template>
   <div class="login">
+    <header-back>
+      <template slot="right">
+        <top-mean :isShowLeft="false"></top-mean>
+      </template>
+    </header-back>
     <div class="content">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="用户管理" name="first">
@@ -44,9 +49,10 @@
 <script>
 import socketIo from "../../utils/socket";
 import headerBack from "../common/header-back";
+import topMean from "../common/common-header"
 export default {
   components: {
-    headerBack
+    headerBack, topMean
   },
   data() {
     return {
@@ -127,10 +133,12 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  flex-direction: column;
   .content {
     width: 500px;
     height: 300px;
+    margin-top: 100px;
   }
 }
 </style>

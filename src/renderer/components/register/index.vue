@@ -2,6 +2,9 @@
   <div class="register">
     <header-back>
       <i class="el-icon-back" slot="left" @click="$router.back()"></i>
+      <template slot="right">
+        <top-mean :isShowLeft="false"></top-mean>
+      </template>
     </header-back>
     <el-form
       :model="registerData"
@@ -55,8 +58,9 @@
 </template>
 <script>
 import headerBack from '../common/header-back';
+import topMean from '../common/common-header'
 export default {
-  components: { headerBack },
+  components: { headerBack, topMean },
   data() {
     const checkPassValidator = (rule, value, callback) => {
       if (value !== this.registerData.pwd) {

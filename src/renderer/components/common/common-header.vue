@@ -1,6 +1,6 @@
 <template>
     <div class="common-header">
-      <div class="left"></div>
+      <div class="left" v-show="isShowLeft"></div>
       <div class="right">
         <div class="mean-left"></div>
         <ul class="mean">
@@ -12,6 +12,12 @@
 </template>
 <script>
 export default {
+  props: {
+    isShowLeft: {
+      default: true,
+      type: Boolean
+    }
+  },
   methods: {
     handlerClose() {
       this.$electron.ipcRenderer.send('closeClient', 0);
@@ -26,7 +32,6 @@ export default {
 .common-header{
   width: 100%;
   height: 28px;
-  flex: none;
   display: flex;
   align-items: center;
   .left{
