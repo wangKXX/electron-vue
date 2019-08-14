@@ -12,6 +12,7 @@ export default class SocketIo{
     this.ws.onopen = () => {
       console.log('链接成功');
       this.ws.send(JSON.stringify({'userId': this.userId, type: 'join'}));
+      this.addLinster();
       // 链接成功后发送ping消息
       clearInterval(this.timer);
       setInterval(() => {

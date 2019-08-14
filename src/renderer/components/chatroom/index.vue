@@ -30,6 +30,13 @@ export default {
       this.$refs.content.scrollTop = this.$refs.content.scrollHeight;
     }, 50);
   },
+  watch: {
+    histryCache() {
+      setTimeout(() => {
+        this.$refs.content.scrollTop = this.$refs.content.scrollHeight;
+      }, 50);
+    }
+  },
   methods: {
     ...mapActions("userList", ["SET_HISTRY_CACHE"]),
     handlerMessage() {

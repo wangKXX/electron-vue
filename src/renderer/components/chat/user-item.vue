@@ -44,6 +44,8 @@ export default {
         }
       }
       this.$store.dispatch('userList/SET_CURRENT_SESSION', userinfo);
+      // 切换ID时清除vuex缓存
+      this.$store.dispatch('userList/SET_HISTRY_CACHE', []);
       this.$electron.ipcRenderer.send('dealCache', {type: 1, key: id});
       this.$electron.ipcRenderer.on('dealCacheResp', (e, args) => {
         const { key, data } = args;
