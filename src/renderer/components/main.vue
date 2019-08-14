@@ -33,14 +33,15 @@ export default {
         const { key, data } = args;
         if (key === "userInfo") { // 用户信息
             this.$store.dispatch("userInfo/SET_USER_INFO", data);
+            const userId = data[0].id;
+            console.log(data, 'id')
+            const Io = new socketIo({
+                url: "ws://10.45.208.141:3030",
+                userId,
+                cb: () => {}
+            });
+            window.Io = Io;
         }
-        const userId = this.userInfo.id;
-        const Io = new socketIo({
-            url: "ws://10.45.208.141:3030",
-            userId,
-            cb: () => {}
-        });
-        window.Io = Io;
         if (key === "userList") { // 获取历史记录列表
           this.$store.dispatch("userList/SET_USER_LIST", data);
           console.log(data, 'data');
