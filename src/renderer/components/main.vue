@@ -66,7 +66,7 @@ export default {
         const userId = data[0].id;
         console.log(data, "id");
         const Io = new socketIo({
-          url: "ws://10.45.208.141:3030",
+          url: "ws://10.45.215.192:3030",
           userId,
           cb: this.handlerMessage
         });
