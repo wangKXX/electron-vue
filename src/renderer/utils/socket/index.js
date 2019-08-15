@@ -16,10 +16,11 @@ export default class SocketIo{
       // 链接成功后发送ping消息
       clearInterval(this.timer);
       setInterval(() => {
-        try {
+        if (this.ws.readyState === 3) {
+          clearInterval(this.timer);
+          this.ws = new WebSocket(this.url, this.userId);
+        } else {
           this.ws.send(JSON.stringify({'userId': this.userId, type: 'ping'}));
-        } catch (error) {
-          console.log(error)
         }
       }, 5000);
     }

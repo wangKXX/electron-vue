@@ -53,7 +53,6 @@ export default {
           key: re.id,
           data
         });
-        console.log(mesg);
         const userInfo = {
           id: re.id,
           nick: re.nick,
