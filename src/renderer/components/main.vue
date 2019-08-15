@@ -31,7 +31,7 @@ export default {
   methods: {
     ...mapActions("userList", ["SET_HISTRY_CACHE"]),
     handlerMessage(data) {
-      data = JSON.parse(data);
+      // data = JSON.parse(data);
       const { type, re } = data;
       if (type === "pong") {
         return false;

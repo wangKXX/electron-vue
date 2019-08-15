@@ -27,8 +27,7 @@ export default class SocketIo{
   addLinster() {
     const ws = this.ws;
     ws.onmessage = evt => {
-      console.log(evt.data, 'mesg');
-      this.cb(evt.data);
+      this.cb(JSON.parse(evt.data));
     };
     ws.onerror = err => {
       console.log(err, 'socket connect err');
