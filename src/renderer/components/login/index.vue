@@ -83,13 +83,13 @@ export default {
               key: "userInfo",
               data: data[0]
             });
+            this.$store.dispatch("userInfo/SET_USER_INFO", data[0]);
             sessionStorage.setItem("userInfo", this.numberValidateForm.number);
             this.$router.push({ path: "/chat" });
           } else {
             return message;
           }
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

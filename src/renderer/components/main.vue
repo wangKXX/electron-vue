@@ -62,7 +62,6 @@ export default {
       const { key, data } = args;
       if (key === "userInfo") {
         // 用户信息
-        this.$store.dispatch("userInfo/SET_USER_INFO", data[0]);
         const userId = data[0].id;
         const Io = new socketIo({
           url: "ws://10.45.215.192:3030",
