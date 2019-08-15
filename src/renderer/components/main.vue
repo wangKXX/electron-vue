@@ -59,8 +59,8 @@ export default {
           nick: re.nick,
           icon: re.icon,
           lastMsg: {
-            date: new Date(),
-            content: ''
+            date: mesg.time,
+            content: mesg.content
           }
         };
         this.$electron.ipcRenderer.send("dealCache", {
