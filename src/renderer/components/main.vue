@@ -32,7 +32,7 @@ export default {
     ...mapActions("userList", ["SET_HISTRY_CACHE"]),
     handlerMessage(data) {
       // data = JSON.parse(data);
-      const { type, re } = data;
+      const { type, re, mesg } = data;
       if (type === "pong") {
         return false;
       }
@@ -52,6 +52,25 @@ export default {
           type: 2,
           key: re.id,
           data
+        });
+        console.log(mesg);
+        const userInfo = {
+          id: re.id,
+          nick: re.nick,
+          icon: re.icon,
+          lastMsg: {
+            date: new Date(),
+            content: ''
+          }
+        };
+        this.$electron.ipcRenderer.send("dealCache", {
+          type: 2,
+          key: "userList",
+          data: userInfo
+        });
+        this.$electron.ipcRenderer.send("dealCache", {
+          type: 1,
+          key: "userList"
         });
       }
     }
