@@ -44,7 +44,7 @@ export default {
       const { id, nick, icon, des } = this.currentSession;
       console.log(this.userInfo);
       const message = {
-        re: this.userInfo[0],
+        re: this.userInfo,
         user: {
           id,
           nick,

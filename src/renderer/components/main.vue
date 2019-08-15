@@ -2,7 +2,7 @@
   <div class="main">
     <div class="left">
       <div class="icon">
-        <img :src="userInfo[0].icon | urlPatten" />
+        <img :src="userInfo.icon | urlPatten" />
       </div>
       <mean></mean>
     </div>
@@ -62,9 +62,8 @@ export default {
       const { key, data } = args;
       if (key === "userInfo") {
         // 用户信息
-        this.$store.dispatch("userInfo/SET_USER_INFO", data);
+        this.$store.dispatch("userInfo/SET_USER_INFO", data[0]);
         const userId = data[0].id;
-        console.log(data, "id");
         const Io = new socketIo({
           url: "ws://10.45.215.192:3030",
           userId,

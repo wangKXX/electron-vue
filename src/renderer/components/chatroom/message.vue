@@ -26,7 +26,7 @@ export default {
   computed: {
     ...mapState("userInfo", ["userInfo"]),
     isSelf() {
-      return (this.item.re.id === this.userInfo[0].id);
+      return (this.item.re.id === this.userInfo.id);
     }
   }
 };
