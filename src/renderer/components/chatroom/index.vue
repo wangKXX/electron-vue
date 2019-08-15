@@ -27,13 +27,13 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$refs.content.scrollTop = this.$refs.content.scrollHeight;
+      this.$refs.content && (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
     }, 50);
   },
   watch: {
     histryCache() {
       setTimeout(() => {
-        this.$refs.content.scrollTop = this.$refs.content.scrollHeight;
+        this.$refs.content && (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
       }, 50);
     }
   },
@@ -61,7 +61,7 @@ export default {
         mesg: message
       });
       setTimeout(() => {
-        this.$refs.content.scrollTop = this.$refs.content.scrollHeight;
+        this.$refs.content && (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
       }, 50);
       window.Io.send(
         JSON.stringify({

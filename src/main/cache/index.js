@@ -7,10 +7,10 @@ function cache(userID) {
   this.cache = this.db.init('cache');
 }
 
-cache.prototype.setCache = function(key, cacheObj) { // 累加缓存
+cache.prototype.setCache = function(key, cacheObj, isNeedRest = false) { // 累加缓存
   let data = this.getCacheByKey(key);
   if (Array.isArray(data)) {
-    const res = data.filter(item => {
+    const res = data.some(item => {
       return item.id === cacheObj.id;
     })
     if (!res) {

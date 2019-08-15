@@ -15,7 +15,14 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  props: ["item"],
+  props: {
+    item: {
+      type: Object,
+      default: {
+        re: {}
+      }
+    }
+  },
   computed: {
     ...mapState("userInfo", ["userInfo"]),
     isSelf() {

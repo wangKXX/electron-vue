@@ -98,26 +98,9 @@ let cacheObjct = null;
 ipcMain.on('initCache', (e, args) => {
   fs.checkFile(`userData`);
   cacheObjct = new cache(args);
-  // cacheObjct.setCache('userList', {
-  //   id: 1,
-  //   nick: '张起灵',
-  //   lastMsg: {
-  //     date: new Date(),
-  //     content: '我是小哥'
-  //   }
-  // });
-  // cacheObjct.setCache('userList', {
-  //   id: 2,
-  //   nick: '天真',
-  //   lastMsg: {
-  //     date: new Date(),
-  //     content: '我是小哥'
-  //   }
-  // });
 });
 
 ipcMain.on('dealCache', (event, args) => {
-  console.log(args)
   const { type, key, data } = args;
   switch(type) {
     case 1: // 获取缓存数据
@@ -126,7 +109,6 @@ ipcMain.on('dealCache', (event, args) => {
       event.sender.send('dealCacheResp', { key, data: resp });
       break;
     case 2: // 设置缓存
-      console.log(data);
       cacheObjct.setCache(key, data);
       break;
     case 3: // 删除缓存

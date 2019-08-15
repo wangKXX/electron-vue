@@ -1,6 +1,6 @@
 const state = {
   userList: [],
-  currentSession: null,
+  currentSession: {},
   histryCache: []
 }
 
