@@ -36,7 +36,6 @@ export default {
       if (type === "pong") {
         return false;
       }
-      console.log(data, "recvice");
       if (re.id === this.currentSession.id) {
         this.SET_HISTRY_CACHE({
           type: 1,
@@ -48,6 +47,7 @@ export default {
           data
         });
       } else {
+        // 不属于当前绘画的消息处理
         this.$electron.ipcRenderer.send("dealCache", {
           type: 2,
           key: re.id,
@@ -72,10 +72,12 @@ export default {
       }
       if (key === "userList") {
         // 获取历史记录列表
-        this.$store.dispatch("userList/SET_USER_LIST", data);
-        console.log(data, "data");
+        this.$store.dispatch("userList/SET_USER_LIST", data || []);
         const currentSession = data ? data.slice(-1)[0] : null;
-        this.$store.dispatch("userList/SET_CURRENT_SESSION", currentSession);
+        this.$store.dispatch(
+          "userList/SET_CURRENT_SESSION",
+          currentSession || {}
+        );
       }
     });
   },
