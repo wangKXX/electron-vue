@@ -1,4 +1,4 @@
-export default class SocketIo{
+export default class SocketIo {
   constructor(options) {
     this.url = options.url;
     this.cb = options.cb;
@@ -11,16 +11,23 @@ export default class SocketIo{
     this.ws = new WebSocket(this.url, this.userId);
     this.ws.onopen = () => {
       console.log('链接成功');
-      this.ws.send(JSON.stringify({'userId': this.userId, type: 'join'}));
+      this.ws.send(JSON.stringify({ 'userId': this.userId, type: 'join' }));
       this.addLinster();
       // 链接成功后发送ping消息
       clearInterval(this.timer);
-      setInterval(() => {
+      this.timer = setInterval(() => {
         if (this.ws.readyState === 3) {
-          clearInterval(this.timer);
-          this.ws = new WebSocket(this.url, this.userId);
+          // clearInterval(this.timer);
+          console.log('断开测试')
+          this.ws.close();
+          this.init();
         } else {
-          this.ws.send(JSON.stringify({'userId': this.userId, type: 'ping'}));
+          console.log('心跳消息开始');
+          try {
+            this.ws.send(JSON.stringify({ 'userId': this.userId, type: 'ping' }));
+          } catch (error) {
+            throw error;
+          }
         }
       }, 5000);
     }
@@ -34,7 +41,7 @@ export default class SocketIo{
       console.log(err, 'socket connect err');
     };
   }
-  send(msg){
+  send(msg) {
     this.ws.send(msg);
   }
   close() {
