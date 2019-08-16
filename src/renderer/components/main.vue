@@ -117,7 +117,7 @@ export default {
     width: 60px;
     flex: none;
     height: 100%;
-    background-color: #051b32;
+    background-color: #000;
     box-sizing: border-box;
     padding: 20px 13px;
     .icon {
@@ -125,6 +125,8 @@ export default {
       height: 34px;
       background-color: #fff;
       font-size: 34px;
+      border-radius: 3px;
+      overflow: hidden;
       img {
         width: 100%;
         height: 100%;

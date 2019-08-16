@@ -47,7 +47,7 @@ export default {
     .left{
         width: 250px;
         flex: none;
-        background-color: rgb(235, 233, 232);
+        background-color: rgb(243, 243, 243);
     }
     .right{
         width: 100%;

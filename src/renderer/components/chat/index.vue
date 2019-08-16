@@ -53,7 +53,7 @@ export default {
         width: 250px;
         height: 100%;
         flex: none;
-        background-color: rgb(235, 233, 232);
+        // background-color: rgb(235, 233, 232);
     }
     .right{
         width: 100%;

@@ -38,9 +38,11 @@ export default {
   box-sizing: border-box;
   padding: 8px;
   .icon {
-    height: 45px;
-    width: 45px;
+    height: 38px;
+    width: 38px;
     flex: none;
+    border-radius: 5px;
+    overflow: hidden;
     img {
       width: 100%;
       height: 100%;
@@ -54,6 +56,7 @@ export default {
     border-radius: 5px;
     position: relative;
     margin: 0 12px;
+    height: fit-content;
   }
   .content:before {
     content: '';

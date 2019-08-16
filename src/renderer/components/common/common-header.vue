@@ -1,7 +1,7 @@
 <template>
     <div class="common-header">
-      <div class="left" v-show="isShowLeft"></div>
-      <div class="right">
+      <div :class="['left', $route.path === '/notebook' ? 'grey' : '']"></div>
+      <div :class="['right', $route.path === '/chat' ? 'grey' : '']">
         <div class="mean-left"></div>
         <ul class="mean">
           <li class="el-icon-minus" @click="handlerMin"></li>
@@ -25,7 +25,7 @@ export default {
     handlerMin() {
       this.$electron.ipcRenderer.send('minClient', 0);
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -38,7 +38,6 @@ export default {
     height: 100%;
     width: 250px;
     flex: none;
-    background-color: rgb(232, 233, 235);
     -webkit-app-region: drag;
   }
   .right{
@@ -60,6 +59,9 @@ export default {
       cursor: pointer;
       margin-right: 10px;
     }
+  }
+  .grey{
+    background-color: rgb(243, 243, 243);
   }
 }
 </style>

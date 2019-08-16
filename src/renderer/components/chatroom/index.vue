@@ -93,6 +93,8 @@ export default {
     box-sizing: border-box;
     padding: 5px;
     font-weight: bold;
+    font-size: 20px;
+    background-color: rgb(243, 243, 243);
   }
   .content {
     width: 100%;
@@ -102,6 +104,7 @@ export default {
     border-top: 1px solid #ebe9e8;
     border-bottom: 1px solid #ebe9e8;
     overflow-y: auto;
+    background-color: rgb(243, 243, 243);
   }
   footer {
     width: 100%;
@@ -110,6 +113,7 @@ export default {
     padding: 5px;
     box-sizing: border-box;
     padding-top: 0;
+    background-color: rgb(243, 243, 243);
     textarea {
       width: 100%;
       height: 100%;
@@ -121,6 +125,7 @@ export default {
       font-size: 18px;
       overflow-y: auto;
       text-align: justify;
+      background-color: rgb(243, 243, 243);
     }
   }
 }
