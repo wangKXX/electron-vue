@@ -15,11 +15,9 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  props: ["userInfo"],
+  props: ["user"],
   computed: {
-    ...mapState("userInfo", {
-      user: state => state.userInfo
-    })
+    ...mapState("userInfo", ['userInfo'])
   },
   methods: {
     handlerClick() {
