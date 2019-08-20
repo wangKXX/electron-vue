@@ -15,9 +15,11 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  props: ["user"],
+  props: ["userInfo"],
   computed: {
-    ...mapState("userInfo", ['userInfo'])
+    ...mapState("userInfo", {
+      user: state => state.userInfo
+    })
   },
   methods: {
     handlerClick() {
@@ -28,13 +30,14 @@ export default {
         .then(({ value }) => {
           const mesgContent = {
             mesg: {
-              re: { ...this.userInfo },
-              user: { ...this.user },
+              re: { ...this.user },
+              user: { ...this.userInfo },
               mesg: value,
               type: "add"
             },
             type: "add"
           };
+          console.log(this.user, 'user', this.userInfo);
           window.Io.send(JSON.stringify(mesgContent));
           this.$message({
             type: 'success',

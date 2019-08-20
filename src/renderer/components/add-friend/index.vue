@@ -11,7 +11,7 @@
     <template slot="title">
       <el-input placeholder="请输入对方微信号" prefix-icon="el-icon-search" v-model="keyword" size="mini" :clearable="true" @change="handlerChange"></el-input>
     </template>
-    <item :user="userInfo" v-if="userInfo.id"></item>
+    <item :userInfo="userInfo" v-if="userInfo.id"></item>
   </el-drawer>
 </template>
 <script>
