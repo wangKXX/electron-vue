@@ -16,6 +16,7 @@
             ref="numberValidateForm"
             label-width="51px"
             class="demo-ruleForm"
+            :rules="rules"
           >
             <el-form-item
               label="账号"
@@ -54,11 +55,22 @@ export default {
     headerBack, topMean
   },
   data() {
+    const checkPhone = (rule, value, callback) => {
+      console.log(value)
+      if (/^1[3456789]\d{9}$/.test(value)) {
+        callback();
+      } else {
+        callback(new Error('请输入手机号'));
+      }
+    };
     return {
       activeName: "first",
       numberValidateForm: {
         number: "",
         pass: ""
+      },
+      rules: {
+        number: [{ validator: checkPhone, trigger: "blur" }]
       }
     };
   },

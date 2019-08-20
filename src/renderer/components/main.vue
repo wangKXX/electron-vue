@@ -24,17 +24,20 @@ export default {
     ...mapState("userInfo", ["userInfo"])
   },
   methods: {
+    ...mapActions("userList", ["SET_HISTRY_CACHE", "clearUserList"]),
     ...mapActions("friend", ["clearFriend"]),
-    ...mapActions("userList", ["clearUserList"]),
-    ...mapActions("userInfo", ["clearUserInfo"])
-  },
-  methods: {
-    ...mapActions("userList", ["SET_HISTRY_CACHE"]),
+    ...mapActions("userInfo", ["clearUserInfo"]),
+    ...mapActions("addTask", ["_set_addTask"]),
     handlerMessage(data) {
       // data = JSON.parse(data);
       const { type, re, mesg } = data;
       if (type === "pong") {
         return false;
+      }
+      // 添加好友逻辑
+      if (type === 'add') {
+        console.log(data, 'add');
+        this._set_addTask(data);
       }
       if (re.id === this.currentSession.id) {
         this.SET_HISTRY_CACHE({
@@ -82,7 +85,7 @@ export default {
         // 用户信息
         const userId = data[0].id;
         const Io = new socketIo({
-          url: "ws://10.45.215.192:3030",
+          url: "ws://10.45.215.199:3030",
           userId,
           cb: this.handlerMessage
         });
@@ -90,6 +93,7 @@ export default {
       }
       if (key === "userList") {
         // 获取历史记录列表
+        console.log(data, 'data');
         this.$store.dispatch("userList/SET_USER_LIST", data || []);
         const currentSession = data ? data.slice(-1)[0] : null;
         this.$store.dispatch(

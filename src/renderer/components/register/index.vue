@@ -12,21 +12,11 @@
       ref="register"
       class="register-form"
       :rules="rules"
+      label-position="left"
+      size="medium"
     >
-      <el-form-item
-        label="账号"
-        prop="id"
-        :rules="[
-                { required: true, message: '账号不能为空'},
-                { type: 'number', message: '账号必须为数字值'}
-              ]"
-      >
-        <el-input
-          type="age"
-          v-model.number="registerData.id"
-          autocomplete="off"
-          placeholder="手机号"
-        ></el-input>
+      <el-form-item label="账号" prop="id">
+        <el-input type="age" v-model.number="registerData.id" autocomplete="off" placeholder="手机号"></el-input>
       </el-form-item>
       <el-form-item
         label="密码"
@@ -44,7 +34,7 @@
         <el-input type="text" v-model="registerData.nick" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="上传头像" prop="icon">
-        <input type="file" ref="upload"/>
+        <input type="file" ref="upload" />
       </el-form-item>
       <el-form-item label="简介" prop="des">
         <el-input type="textarea" v-model="registerData.des"></el-input>
@@ -57,8 +47,8 @@
   </div>
 </template>
 <script>
-import headerBack from '../common/header-back';
-import topMean from '../common/common-header'
+import headerBack from "../common/header-back";
+import topMean from "../common/common-header";
 export default {
   components: { headerBack, topMean },
   data() {
@@ -69,9 +59,18 @@ export default {
         callback();
       }
     };
+    const checkPhone = (rule, value, callback) => {
+      console.log(value)
+      if (/^1[3456789]\d{9}$/.test(value)) {
+        callback();
+      } else {
+        callback(new Error('请输入手机号'));
+      }
+    };
     return {
       rules: {
-        checkPass: [{ validator: checkPassValidator, trigger: "blur" }]
+        checkPass: [{ validator: checkPassValidator, trigger: "blur" }],
+        id: [{ required: true, message: '账号不能为空'}, { validator: checkPhone, trigger: "blur" }]
       },
       registerData: {
         id: null,
@@ -87,20 +86,22 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           // alert("submit!");
-          console.log(this.$refs.upload)
+          console.log(this.$refs.upload);
           const file = this.$refs.upload.files[0];
           const form = new FormData();
-          form.append('icon', file);
-          form.append('id', +this.registerData.id);
-          form.append('pwd', this.registerData.pwd);
-          form.append('nick', this.registerData.nick);
-          form.append('des', this.registerData.des);
+          form.append("icon", file);
+          form.append("id", +this.registerData.id);
+          form.append("pwd", this.registerData.pwd);
+          form.append("nick", this.registerData.nick);
+          form.append("des", this.registerData.des);
           console.log(form.get("id"));
           const res = this.Api.register(form);
-          const { data: { status, message, data} } = res;
+          const {
+            data: { status, message, data }
+          } = res;
           if (status === 0) {
-            console.log('success000000')
-            // this.$router.back();
+            console.log("success000000");
+            this.$router.back();
           }
         } else {
           console.log("error submit!!");
@@ -122,7 +123,7 @@ export default {
   align-items: center;
   // justify-content: center;
   flex-direction: column;
-  .register-form{
+  .register-form {
     width: 400px;
   }
 }
