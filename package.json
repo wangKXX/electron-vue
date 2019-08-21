@@ -1,6 +1,6 @@
 {
   "name": "my-project",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "kai.wang <kai.wang@baozun.com>",
   "description": "An electron-vue project",
   "license": null,
@@ -48,10 +48,19 @@
       "icon": "build/icons/icon.icns"
     },
     "win": {
-      "icon": "build/icons/icon.ico"
+      "icon": "build/icons/icon.ico",
+      "target": [
+        "nsis",
+        "zip"
+      ]
     },
     "linux": {
       "icon": "build/icons"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": true
     }
   },
   "dependencies": {
