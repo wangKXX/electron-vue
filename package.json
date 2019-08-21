@@ -20,7 +20,7 @@
     "postinstall": ""
   },
   "build": {
-    "productName": "my-project",
+    "productName": "heightChat",
     "appId": "com.example.yourapp",
     "directories": {
       "output": "build"
