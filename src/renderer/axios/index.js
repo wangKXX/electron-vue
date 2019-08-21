@@ -4,7 +4,7 @@ const source = CancelToken.source();
 function getInstance() {
   const instance = axios.create();
   instance.interceptors.request.use(config => {
-    config.baseURL = 'http://10.45.215.199:3000';
+    config.baseURL = 'http://10.45.210.5:3000';
     config.timeout = 5000;
     config.cancelToken = source.token;
     return config;

@@ -18,7 +18,7 @@ export default {
   props: ['user'],
   filters: {
     urlPatten(val) {
-      return `http://10.45.215.199:3000/${val}`;
+      return `http://10.45.210.5:3000/${val}`;
     }
   },
   data() {

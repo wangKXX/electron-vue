@@ -79,7 +79,7 @@ ipcMain.on('selectFile', (e, args) => {
 
 let cacheObjct = null;
 ipcMain.on('initCache', (e, args) => {
-  fs.checkFile(`userData`);
+  fs.checkFile(require('path').join(__dirname, '../../../myAppCache').replace(/\\/g, '\\\\'));
   cacheObjct = new cache(args);
 });
 

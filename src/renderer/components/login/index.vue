@@ -21,19 +21,12 @@
             <el-form-item
               label="账号"
               prop="number"
-              :rules="[
-                { required: true, message: '账号不能为空'},
-                { type: 'number', message: '账号必须为数字值'}
-              ]"
             >
               <el-input type="age" v-model.number="numberValidateForm.number" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
               label="密码"
               prop="pass"
-              :rules="[
-                { required: true, message: '密码不能为空'}
-              ]"
             >
               <el-input type="password" v-model.number="numberValidateForm.pass" autocomplete="off"></el-input>
             </el-form-item>
@@ -70,7 +63,8 @@ export default {
         pass: ""
       },
       rules: {
-        number: [{ validator: checkPhone, trigger: "blur" }]
+        number: [{ required: true, message: '账号不能为空', trigger: "blur"}, { validator: checkPhone, trigger: "blur" }],
+        pass: [{ required: true, message: '密码不能为空', trigger: "blur"}]
       }
     };
   },

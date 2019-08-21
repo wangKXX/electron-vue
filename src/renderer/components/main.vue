@@ -86,7 +86,7 @@ export default {
         // 用户信息
         const userId = data[0].id;
         const Io = new socketIo({
-          url: "ws://10.45.215.199:3030",
+          url: "ws://10.45.210.5:3030",
           userId,
           cb: this.handlerMessage
         });
