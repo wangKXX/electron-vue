@@ -23,33 +23,16 @@ export default {
   },
   methods: {
     handlerClick() {
-      this.$prompt("请输入打招呼消息", "", {
-        confirmButtonText: "添加好友",
-        cancelButtonText: "取消"
-      })
-        .then(({ value }) => {
-          const mesgContent = {
-            mesg: {
-              re: { ...this.user },
-              user: { ...this.userInfo },
-              mesg: value,
-              type: "add"
-            },
-            type: "add"
-          };
-          console.log(this.user, 'user', this.userInfo);
-          window.Io.send(JSON.stringify(mesgContent));
-          this.$message({
-            type: 'success',
-            message: '添加消息已发送，对方统一后即可开始聊天'
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: 'error',
-            message: '系统异常'
-          });
-        });
+      const mesgContent = {
+        mesg: {
+          re: { id: this.user.id },
+          user: { id: this.userInfo.id },
+          type: "re_add"
+        },
+        type: "re_add"
+      };
+      console.log(this.user, "user", this.userInfo);
+      window.Io.send(JSON.stringify(mesgContent));
     }
   }
 };
@@ -62,7 +45,6 @@ export default {
   width: 100%;
   padding: 8px 30px;
   box-sizing: border-box;
-  background-color: #e8e8e8;
   .icon {
     width: 40px;
     height: 40px;
@@ -94,5 +76,9 @@ export default {
     font-size: 16px;
     cursor: pointer;
   }
+}
+.el-drawer__body {
+  border-top: 1px solid #e8e8e8;
+  padding-top: 10px;
 }
 </style>

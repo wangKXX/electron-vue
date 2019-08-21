@@ -35,45 +35,46 @@ export default {
         return false;
       }
       // 添加好友逻辑
-      if (type === 'add') {
-        console.log(data, 'add');
+      if (type === "add") {
+        console.log(data, "add");
         this._set_addTask(data);
-      }
-      if (re.id === this.currentSession.id) {
-        this.SET_HISTRY_CACHE({
-          type: 1,
-          mesg: data
-        });
-        this.$electron.ipcRenderer.send("dealCache", {
-          type: 2,
-          key: this.currentSession.id,
-          data
-        });
       } else {
-        // 不属于当前绘画的消息处理
-        this.$electron.ipcRenderer.send("dealCache", {
-          type: 2,
-          key: re.id,
-          data
-        });
-        const userInfo = {
-          id: re.id,
-          nick: re.nick,
-          icon: re.icon,
-          lastMsg: {
-            date: mesg.time,
-            content: mesg.content
-          }
-        };
-        this.$electron.ipcRenderer.send("dealCache", {
-          type: 2,
-          key: "userList",
-          data: userInfo
-        });
-        this.$electron.ipcRenderer.send("dealCache", {
-          type: 1,
-          key: "userList"
-        });
+        if (re.id === this.currentSession.id) {
+          this.SET_HISTRY_CACHE({
+            type: 1,
+            mesg: data
+          });
+          this.$electron.ipcRenderer.send("dealCache", {
+            type: 2,
+            key: this.currentSession.id,
+            data
+          });
+        } else {
+          // 不属于当前绘画的消息处理
+          this.$electron.ipcRenderer.send("dealCache", {
+            type: 2,
+            key: re.id,
+            data
+          });
+          const userInfo = {
+            id: re.id,
+            nick: re.nick,
+            icon: re.icon,
+            lastMsg: {
+              date: mesg.time,
+              content: mesg.content
+            }
+          };
+          this.$electron.ipcRenderer.send("dealCache", {
+            type: 2,
+            key: "userList",
+            data: userInfo
+          });
+          this.$electron.ipcRenderer.send("dealCache", {
+            type: 1,
+            key: "userList"
+          });
+        }
       }
     }
   },
@@ -93,7 +94,7 @@ export default {
       }
       if (key === "userList") {
         // 获取历史记录列表
-        console.log(data, 'data');
+        console.log(data, "data");
         this.$store.dispatch("userList/SET_USER_LIST", data || []);
         const currentSession = data ? data.slice(-1)[0] : null;
         this.$store.dispatch(

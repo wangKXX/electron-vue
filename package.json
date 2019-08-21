@@ -6,6 +6,9 @@
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
+    "win32": "node .electron-vue/build.js && electron-builder --platform=win32  --arch=ia32",
+    "mac": "node .electron-vue/build.js && electron-builder --platform=mac",
+    "build:all": "node .electron-vue/build.js && electron-builder --platform=all",
     "build": "node .electron-vue/build.js && electron-builder",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
@@ -22,6 +25,7 @@
     "directories": {
       "output": "build"
     },
+    "asar": false,
     "files": [
       "dist/electron/**/*"
     ],

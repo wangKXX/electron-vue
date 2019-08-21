@@ -2,11 +2,6 @@ import { app, BrowserWindow, ipcMain, dialog } from 'electron'
 import '../renderer/store'
 const cache = require('./cache');
 const fs = require('./cache/plugins')
-
-/**
- * Set `__static` path to static files in production
- * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
- */
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
@@ -16,11 +11,7 @@ let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/chat`
   : `file://${__dirname}/index.html`
-// const winURL = 'http://localhost:9080'
 function createWindow () {
-  /**
-   * Initial window options
-   */
   mainWindow = new BrowserWindow({
     height: 590,
     useContentSize: true,
@@ -30,14 +21,6 @@ function createWindow () {
     resizable: false,
     frame: false
   })
-  // child = new BrowserWindow({
-  //   parent: mainWindow,
-  //   modal: true,
-  //   show: false,
-  //   width: 300,
-  //   height: 200
-  // })
-  // child.loadURL('www.baidu.com')
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {

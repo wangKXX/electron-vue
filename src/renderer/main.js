@@ -6,6 +6,7 @@ import element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './filter';
 import api from './axios';
+import './sheet/index.scss'
 
 Vue.use(element);
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));

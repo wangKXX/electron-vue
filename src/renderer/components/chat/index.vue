@@ -4,7 +4,6 @@
             <common-user-list>
               <template v-slot:search>
                 <el-input placeholder="搜索" v-model="searchVal" size="mini"></el-input>
-                <el-button size="mini" @click="$refs.showAdd.handlerShowAdd()">+</el-button>
               </template>
               <template v-slot:user v-if="userList && userList.length">
                 <user-item :user='item' v-for="(item, index) in userList" :key="`user${index}`"></user-item>
@@ -20,13 +19,12 @@
 </template>
 <script>
 import commonUserList from '@/components/common/common-user-list';
-import addFriend from '../add-friend'
 import chatRoom from '../chatroom'
 import userItem from './user-item';
 import { mapState } from 'vuex';
 export default {
   components: {
-    commonUserList, userItem, chatRoom, addFriend
+    commonUserList, userItem, chatRoom
   },
   data() {
     return {

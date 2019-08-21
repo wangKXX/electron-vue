@@ -32,7 +32,4 @@ export default {
     overflow-y: auto;
   }
 }
-.el-input--mini{
-  margin-right: 15px;
-}
 </style>
