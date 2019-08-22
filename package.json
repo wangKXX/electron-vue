@@ -25,11 +25,12 @@
     "directories": {
       "output": "build"
     },
-    "asar": false,
+    "asar": true,
     "files": [
       "dist/electron/**/*"
     ],
     "dmg": {
+      "title": "HeightChat",
       "contents": [
         {
           "x": 410,
@@ -45,7 +46,8 @@
       ]
     },
     "mac": {
-      "icon": "icons/icon.icns"
+      "icon": "icons/icon.icns",
+      "target": "dmg"
     },
     "win": {
       "icon": "icons/icon.ico",
@@ -59,8 +61,13 @@
     },
     "nsis": {
       "oneClick": false,
+      "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
-      "perMachine": true
+      "installerIcon": "icons/icon.ico",
+      "uninstallerIcon": "icons/icon.ico",
+      "installerHeaderIcon": "icons/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     }
   },
   "dependencies": {
