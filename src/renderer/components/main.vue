@@ -28,7 +28,7 @@ export default {
     ...mapActions("friend", ["clearFriend"]),
     ...mapActions("userInfo", ["clearUserInfo"]),
     ...mapActions("addTask", ["_set_addTask"]),
-    handlerMessage(data) {
+    async handlerMessage(data) {
       // data = JSON.parse(data);
       const { type, re, mesg } = data;
       if (type === "pong") {
@@ -39,6 +39,16 @@ export default {
         console.log(data, "add");
         this._set_addTask(data);
       } else {
+        if (type === 'addSucess') {
+          // 接收到添加成功消息后1.重新获取好友列表
+          const result = await this.Api.getUserList(this.userInfo.id);
+          const {
+                data: { status, message, data }
+              } = result;
+          if (status === 0) {
+            this.$store.dispatch("friend/SET_USER_LIST", data);
+          }
+        } 
         if (re.id === this.currentSession.id) {
           this.SET_HISTRY_CACHE({
             type: 1,
