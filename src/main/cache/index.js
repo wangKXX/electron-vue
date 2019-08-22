@@ -1,9 +1,10 @@
 const lndb = require('lndb');
 const fileUtils = require('./plugins');
 const _path = require('path');
-function cache(userID) {
-  fileUtils.checkFile(_path.resolve(__dirname, `../../../myAppCache/${userID}`));
-  this.db = new lndb(_path.resolve(__dirname, `../../../myAppCache/${userID}`));
+function cache(userID, isDev) {
+  const path = process.env.NODE_ENV === 'development' ? `userData/${userID}` : _path.resolve(__dirname, `../../../myAppCache/${userID}`);
+  fileUtils.checkFile(path);
+  this.db = new lndb(path)
   this.cache = this.db.init('cache');
 }
 

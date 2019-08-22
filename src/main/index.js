@@ -11,7 +11,7 @@ let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/chat`
   : `file://${__dirname}/index.html`
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     height: 590,
     useContentSize: true,
@@ -54,38 +54,32 @@ ipcMain.on('closeClient', (e, args) => {
 ipcMain.on('minClient', (e, args) => {
   mainWindow.minimize()
 })
-// ipcMain.on('openDialog', (e, args) => {
-//   if (args) {
-//     child.show()
-//   } else {
-//     child.hide()
-//   }
-// })
-
-ipcMain.on('selectFile', (e, args) => {
-  dialog.showOpenDialog(mainWindow, {
-    title: '请选择文件',
-    defaultPath: 'D:\\freespace',
-    properties: [
-      'openFile',
-      'showHiddenFiles',
-      'createDirectory',
-      'promptToCreate'
-    ]
-  }, (filePaths) => {
-    console.log(filePaths)
-  })
-});
+// ipcMain.on('selectFile', (e, args) => {
+//   dialog.showOpenDialog(mainWindow, {
+//     title: '请选择文件',
+//     defaultPath: 'D:\\freespace',
+//     properties: [
+//       'openFile',
+//       'showHiddenFiles',
+//       'createDirectory',
+//       'promptToCreate'
+//     ]
+//   }, (filePaths) => {
+//     console.log(filePaths)
+//   })
+// });
 
 let cacheObjct = null;
 ipcMain.on('initCache', (e, args) => {
-  fs.checkFile(require('path').join(__dirname, '../../../myAppCache').replace(/\\/g, '\\\\'));
+  const path = process.env.NODE_ENV === 'development' ? 'userData' : require('path').join(__dirname, '../../../myAppCache').replace(/\\/g, '\\\\');
+  console.log(process.env.NODE_ENV, 'env')
+  fs.checkFile(path, process.env.NODE_ENV === 'development');
   cacheObjct = new cache(args);
 });
 
 ipcMain.on('dealCache', (event, args) => {
   const { type, key, data } = args;
-  switch(type) {
+  switch (type) {
     case 1: // 获取缓存数据
       const resp = cacheObjct.getCacheByKey(key);
       // event.reply('dealCacheResp', data); 这种方式不行？why
