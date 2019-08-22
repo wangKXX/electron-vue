@@ -25,8 +25,8 @@ export default {
     handlerClick() {
       const mesgContent = {
         mesg: {
-          re: { id: this.user.id },
-          user: { id: this.userInfo.id },
+          re: { ...this.user.id }, // 自己
+          user: { ...this.userInfo.id }, // 目标对象
           type: "re_add"
         },
         type: "re_add"
