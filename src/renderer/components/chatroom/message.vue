@@ -2,7 +2,7 @@
   <div :class="['message', 'self']" v-if="isSelf">
     <div class="content">{{item.mesg.content}}</div>
     <div class="icon">
-      <img :src="item.user.icon | urlPatten" />
+      <img :src="item.re.icon | urlPatten" />
     </div>
   </div>
   <div :class="['message']" v-else>
