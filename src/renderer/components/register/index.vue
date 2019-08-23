@@ -83,10 +83,8 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate(async valid => {
         if (valid) {
-          // alert("submit!");
-          console.log(this.$refs.upload);
           const file = this.$refs.upload.files[0];
           const form = new FormData();
           form.append("icon", file);
@@ -94,14 +92,19 @@ export default {
           form.append("pwd", this.registerData.pwd);
           form.append("nick", this.registerData.nick);
           form.append("des", this.registerData.des);
-          console.log(form.get("id"));
-          const res = this.Api.register(form);
+          const res = await this.Api.register(form);
           const {
-            data: { status, message, data }
+            data: {data: { status, message, data }}
           } = res;
           if (status === 0) {
-            console.log("success000000");
             this.$router.back();
+          } else if (status === 1062) {
+            console.log(status, 'status');
+            const { mesgContent } = data;
+            this.$message({
+              type: 'error',
+              message: mesgContent
+            })
           }
         } else {
           console.log("error submit!!");
