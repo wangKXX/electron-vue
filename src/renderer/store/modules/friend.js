@@ -9,6 +9,9 @@ const mutations = {
   },
   SET_USER_LIST (state, val) {
     state.friendList = val
+  },
+  clearFriend (state) {
+    state.selectUser = {};
   }
 }
 
@@ -21,8 +24,8 @@ const actions = {
     // params = friendList;
     commit('SET_USER_LIST', params)
   },
-  clearFriend({ state }) {
-    state.selectUser = {};
+  clearFriend({ commit }) {
+    commit('clearFriend')
   }
 }
 

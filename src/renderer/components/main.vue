@@ -48,7 +48,7 @@ export default {
             this.$store.dispatch("friend/SET_USER_LIST", data);
           }
           // 添加成功后删除添加任务
-          this.$store.dispatch('addTask/_deltel_task', re.id);
+          this._deltel_task(re.id);
           this.$store.dispatch('userList/SET_CURRENT_SESSION', re);
           this.$router.push({path: '/chat'});
         } 

@@ -5,6 +5,9 @@ const state = {
 const mutations = {
   SET_USER_INFO (state, val) {
     state.userInfo = val;
+  },
+  CLAERUAERINFO (state) {
+    state.userInfo = {}
   }
 }
 
@@ -12,8 +15,8 @@ const actions = {
   SET_USER_INFO ({ commit }, params) {
     commit('SET_USER_INFO', params);
   },
-  clearUserInfo({ state }) {
-    state.userInfo = {}
+  clearUserInfo({ commit }) {
+    commit('CLAERUAERINFO')
   }
 }
 
