@@ -14,7 +14,6 @@
             <div class="empty" v-if="!currentSession.icon">暂无聊天记录</div>
             <chat-room v-else></chat-room>
         </div>
-        <add-friend ref="showAdd"></add-friend>
     </div>
 </template>
 <script>
