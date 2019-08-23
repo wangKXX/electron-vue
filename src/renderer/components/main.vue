@@ -27,7 +27,7 @@ export default {
     ...mapActions("userList", ["SET_HISTRY_CACHE", "clearUserList"]),
     ...mapActions("friend", ["clearFriend"]),
     ...mapActions("userInfo", ["clearUserInfo"]),
-    ...mapActions("addTask", ["_set_addTask"]),
+    ...mapActions("addTask", ["_set_addTask", '_deltel_task']),
     async handlerMessage(data) {
       // data = JSON.parse(data);
       const { type, re, mesg } = data;
@@ -36,7 +36,6 @@ export default {
       }
       // 添加好友逻辑
       if (type === "add") {
-        console.log(data, "add");
         this._set_addTask(data);
       } else {
         if (type === 'addSucess') {
@@ -48,6 +47,10 @@ export default {
           if (status === 0) {
             this.$store.dispatch("friend/SET_USER_LIST", data);
           }
+          // 添加成功后删除添加任务
+          this._deltel_task(re.id);
+          this.$store.dispatch('userList/SET_CURRENT_SESSION', re);
+          this.$router.push({path: '/chat'});
         } 
         if (re.id === this.currentSession.id) {
           this.SET_HISTRY_CACHE({
