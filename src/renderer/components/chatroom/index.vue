@@ -27,13 +27,15 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$refs.content && (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
+      this.$refs.content &&
+        (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
     }, 50);
   },
   watch: {
     histryCache() {
       setTimeout(() => {
-        this.$refs.content && (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
+        this.$refs.content &&
+          (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
       }, 50);
     }
   },
@@ -61,7 +63,8 @@ export default {
         mesg: message
       });
       setTimeout(() => {
-        this.$refs.content && (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
+        this.$refs.content &&
+          (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
       }, 50);
       window.Io.send(
         JSON.stringify({
@@ -73,6 +76,25 @@ export default {
         type: 2,
         key: this.currentSession.id,
         data: message
+      });
+      const userinfo = {
+        id,
+        nick,
+        icon,
+        des,
+        lastMsg: {
+          date: new Date(),
+          content: this.msg
+        }
+      };
+      this.$electron.ipcRenderer.send("dealCache", {
+        type: 2,
+        key: "userList",
+        data: userinfo
+      });
+      this.$electron.ipcRenderer.send("dealCache", {
+        type: 1,
+        key: "userList"
       });
       this.msg = "";
     }

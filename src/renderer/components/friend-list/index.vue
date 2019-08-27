@@ -12,7 +12,14 @@
               <item v-for="(item, index) in taskList" :key="`item${index}`" :userInfo="item.re"></item>
             </el-collapse-item>
           </el-collapse>
-          <friend-item v-for="(item, index) in friendList" :key="`friend${index}`" :item="item"></friend-item>
+          <el-collapse v-model="active">
+            <el-collapse-item :title="`联系人（${friendCount}）`" name="1">
+                <div class="item-wrap" v-for="(val, key, index) in friendList" :key="`item-${index}`">
+                  <div class="item-warap-title">{{ key }}</div>
+                  <friend-item v-for="(item, index) in val" :key="`friend${index}`" :item="item"></friend-item>
+                </div>
+            </el-collapse-item>
+          </el-collapse>
         </template>
       </common-user-list>
     </div>
@@ -32,12 +39,19 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      searchVal: ""
+      searchVal: "",
+      active: '1'
     };
   },
   computed: {
     ...mapState("friend", ["friendList"]),
-    ...mapState("addTask", ["taskList"])
+    ...mapState("addTask", ["taskList"]),
+    friendCount() {
+      return Object.values(this.friendList).reduce((init, current) => {
+        return init + current.length;
+      }, 0)
+      
+    },
   },
   components: {
     commonUserList,
@@ -62,6 +76,11 @@ export default {
   }
   .right {
     width: 100%;
+  }
+  .item-warap-title{
+    padding: 8px 15px;
+    border-top: 1px solid #E8E8E8;
+    border-bottom: 1px solid #E8E8E8;
   }
 }
 </style>

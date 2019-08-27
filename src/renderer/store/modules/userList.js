@@ -17,7 +17,6 @@ const mutations = {
     } else {
       state.histryCache = val
     }
-    // state.histryCache = val;
   },
   clearUserList (state) {
     state.userList = [];
@@ -31,7 +30,6 @@ const actions = {
     commit('SET_USER_LIST', params);
   },
   SET_CURRENT_SESSION({ commit }, params) {
-    console.log('set', params);
     commit('SET_CURRENT_SESSION', params);
   },
   SET_HISTRY_CACHE({ commit }, params) {

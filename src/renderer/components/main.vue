@@ -29,7 +29,6 @@ export default {
     ...mapActions("userInfo", ["clearUserInfo"]),
     ...mapActions("addTask", ["_set_addTask", '_deltel_task']),
     async handlerMessage(data) {
-      // data = JSON.parse(data);
       const { type, re, mesg } = data;
       if (type === "pong") {
         return false;
@@ -92,6 +91,8 @@ export default {
     }
   },
   created() {
+    window.IP = '10.45.215.231';
+    console.log('main creat')
     this.$electron.ipcRenderer.send("dealCache", { type: 1, key: "userInfo" });
     this.$electron.ipcRenderer.on("dealCacheResp", (e, args) => {
       const { key, data } = args;
@@ -99,7 +100,7 @@ export default {
         // 用户信息
         const userId = data[0].id;
         const Io = new socketIo({
-          url: "ws://10.45.210.5:3030",
+          url: `ws://${window.IP}:3030`,
           userId,
           cb: this.handlerMessage
         });
@@ -107,9 +108,8 @@ export default {
       }
       if (key === "userList") {
         // 获取历史记录列表
-        console.log(data, "data");
         this.$store.dispatch("userList/SET_USER_LIST", data || []);
-        const currentSession = data ? data.slice(-1)[0] : null;
+        const currentSession = data ? data.slice()[0] : null;
         this.$store.dispatch(
           "userList/SET_CURRENT_SESSION",
           currentSession || {}
@@ -118,9 +118,9 @@ export default {
     });
   },
   destroyed() {
-    this.clearFriend();
-    this.clearUserList();
-    this.clearUserInfo();
+    // this.clearFriend();
+    // this.clearUserList();
+    // this.clearUserInfo();
   }
 };
 </script>

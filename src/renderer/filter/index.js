@@ -13,7 +13,7 @@ const filters = {
     }
   },
   urlPatten(val) {
-    return `http://10.45.210.5:3000/${val}`;
+    return `http://${window.IP}:3000/${val}`;
   }
 };
 

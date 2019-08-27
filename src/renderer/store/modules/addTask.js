@@ -9,6 +9,9 @@ const mutations = {
   },
   DELETE_TASK (state, id) {
     state.taskList = state.taskList.filter(item => item.re.id !== id);
+  },
+  CLEAR_TASK (state) {
+    state.taskList = [];
   }
 }
 
@@ -18,6 +21,9 @@ const actions = {
   },
   _deltel_task ({ commit }, id) {
     commit('DELETE_TASK', id);
+  },
+  _clear_task({ commit }) {
+    commit('CLEAR_TASK');
   }
 }
 

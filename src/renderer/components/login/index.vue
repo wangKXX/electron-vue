@@ -43,6 +43,7 @@
 <script>
 import headerBack from "../common/header-back";
 import topMean from "../common/common-header"
+import { mapActions } from 'vuex';
 export default {
   components: {
     headerBack, topMean
@@ -69,6 +70,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions('friend', ['SET_USER_LIST']),
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -77,7 +79,6 @@ export default {
         if (valid) {
           const { number, pass } = this.numberValidateForm;
           const res = await this.Api.getLogin({ id: number, pwd: pass });
-          console.log("success", res);
           const {
             data: { status, message, data }
           } = res;
@@ -114,7 +115,7 @@ export default {
             data: { status, message, data }
           } = result;
       if (status === 0) {
-        this.$store.dispatch("friend/SET_USER_LIST", data);
+        this.SET_USER_LIST(data);
       }
     }
   }

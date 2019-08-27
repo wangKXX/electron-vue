@@ -1,12 +1,14 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron'
-import '../renderer/store'
+// import '../renderer/store'
 const cache = require('./cache');
-const fs = require('./cache/plugins')
+const fs = require('./cache/plugins');
+const ip = require('ip');
+const IP = ip.address();
 if (process.env.NODE_ENV !== 'development') {
-  global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+  global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\');
 }
 
-let mainWindow
+let mainWindow = null;
 // let child
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/chat`
@@ -38,7 +40,6 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
 app.on('activate', () => {
   if (mainWindow === null) {
     createWindow()
@@ -54,20 +55,14 @@ ipcMain.on('closeClient', (e, args) => {
 ipcMain.on('minClient', (e, args) => {
   mainWindow.minimize()
 })
-// ipcMain.on('selectFile', (e, args) => {
-//   dialog.showOpenDialog(mainWindow, {
-//     title: '请选择文件',
-//     defaultPath: 'D:\\freespace',
-//     properties: [
-//       'openFile',
-//       'showHiddenFiles',
-//       'createDirectory',
-//       'promptToCreate'
-//     ]
-//   }, (filePaths) => {
-//     console.log(filePaths)
-//   })
-// });
+
+ipcMain.on('reload', (e, args) => {
+  mainWindow.reload();
+});
+
+ipcMain.on('getIp', (e, args) => {
+  e.sender.send('getIp', {ip: IP});
+});
 
 let cacheObjct = null;
 ipcMain.on('initCache', (e, args) => {

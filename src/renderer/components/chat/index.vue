@@ -11,7 +11,7 @@
             </common-user-list>
         </div>
         <div class="right">
-            <div class="empty" v-if="!currentSession.icon">暂无聊天记录</div>
+            <div class="empty" v-if="!currentSession">暂无聊天记录</div>
             <chat-room v-else></chat-room>
         </div>
     </div>
@@ -34,7 +34,6 @@ export default {
     ...mapState('userList', ['userList', 'currentSession']),
   },
   beforeRouteEnter (to, from, next) {
-    // ...
     next(vm => {
       vm.$electron.ipcRenderer.send('dealCache', {type: 1, key: 'userList'});
     });

@@ -1,7 +1,8 @@
 <template>
   <div class="user-item" @click="openChat(user.id)" :class="isActive ? 'active' : ''">
     <div class="user-icon">
-      <img :src="user.icon | urlPatten"/>
+      <el-badge class="item" :value="200" :max="99" :hidden="true"></el-badge>
+      <img :src="user.icon | urlPatten" />
     </div>
     <div class="user-msg">
       <div class="user-name">
@@ -13,20 +14,16 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
-  props: ['user'],
-  filters: {
-    urlPatten(val) {
-      return `http://10.45.210.5:3000/${val}`;
-    }
-  },
+  props: ["user"],
   data() {
-    return {}
+    return {};
   },
   computed: {
-    ...mapState('userList', ['currentSession']),
+    ...mapState("userList", ["currentSession"]),
     isActive() {
+      console.log(this.currentSession.id, 'id');
       return this.currentSession.id === this.user.id;
     }
   },
@@ -40,68 +37,75 @@ export default {
         des: user.des,
         lastMsg: {
           date: new Date(),
-          content: ''
+          content: ""
         }
-      }
-      this.$store.dispatch('userList/SET_CURRENT_SESSION', userinfo);
+      };
+      this.$store.dispatch("userList/SET_CURRENT_SESSION", userinfo);
       // 切换ID时清除vuex缓存
-      this.$store.dispatch('userList/SET_HISTRY_CACHE', []);
-      this.$electron.ipcRenderer.send('dealCache', {type: 1, key: id});
-      this.$electron.ipcRenderer.on('dealCacheResp', (e, args) => {
+      this.$store.dispatch("userList/SET_HISTRY_CACHE", []);
+      this.$electron.ipcRenderer.send("dealCache", { type: 1, key: id });
+      this.$electron.ipcRenderer.on("dealCacheResp", (e, args) => {
         const { key, data } = args;
         if (key === id) {
-          this.$store.dispatch('userList/SET_HISTRY_CACHE', data || []);
+          this.$store.dispatch("userList/SET_HISTRY_CACHE", data || []);
         }
       });
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
-.user-item{
+.user-item {
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  height: 66px;
-  padding: 14px;
-  &:hover{
+  // height: 66px;
+  padding: 7px 14px;
+  &:hover {
     background-color: rgb(215, 216, 218);
   }
-  &.active{
+  &.active {
     background-color: rgb(215, 216, 218);
   }
-  .user-icon{
+  .user-icon {
     height: 45px;
     width: 45px;
     flex: none;
-    border-radius: 5px;
-    overflow: hidden;
-    img{
+    
+    // overflow: hidden;
+    position: relative;
+    img {
       width: 100%;
       height: 100%;
       display: block;
+      border-radius: 5px;
     }
   }
-  .user-msg{
+  .user-msg {
     padding-left: 12px;
     width: 100%;
+    min-width: 0; // flex布局下white-space bug
     .user-histroy {
       width: 100%;
       padding-right: 12px;
       color: #999;
       font-size: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      box-sizing: border-box;
     }
-    .user-name{
+    .user-name {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      .user-date{
+      .user-date {
         width: 45px;
         font-size: 12px;
         color: #999;
       }
-      .user-nick{
+      .user-nick {
         width: 100%;
         padding-right: 12px;
         text-overflow: ellipsis;

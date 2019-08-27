@@ -10,11 +10,6 @@
 import { mapState } from "vuex";
 export default {
   props: ["item"],
-  filters: {
-    urlPatten(val) {
-      return `http://10.45.210.5:3000/${val}`;
-    }
-  },
   computed: {
     ...mapState("friend", ["selectUser"]),
     isActive() {
@@ -23,7 +18,6 @@ export default {
   },
   methods: {
     handlerClick(item) {
-      console.log(item, "item");
       this.$store.dispatch("friend/SET_SELECT_USER", item);
     }
   }
@@ -36,8 +30,8 @@ export default {
     align-items: center;
     box-sizing: border-box;
     width: 100%;
-    height: 66px;
-    padding: 14px;
+    // height: 66px;
+    padding: 8px 14px;
   }
   &:hover {
     background-color: rgb(215, 216, 218);
@@ -46,8 +40,8 @@ export default {
     background-color: rgb(215, 216, 218);
   }
   .icon {
-    height: 45px;
-    width: 45px;
+    height: 30px;
+    width: 30px;
     flex: none;
     border-radius: 5px;
     overflow: hidden;
@@ -62,8 +56,8 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     padding-left: 14px;
-    font-size: 20px;
-    font-weight: 300;
+    font-size: 15px;
+    font-weight: bolder;
   }
 }
 </style>

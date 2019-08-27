@@ -11,14 +11,14 @@ function cache(userID, isDev) {
 cache.prototype.setCache = function(key, cacheObj, isNeedRest = false) { // 累加缓存
   let data = this.getCacheByKey(key);
   if (Array.isArray(data)) {
-    const res = data.some(item => {
-      return item.id === cacheObj.id;
+    const res = data.filter(item => {
+      return item.id !== cacheObj.id;
     })
-    if (!res) {
-      data.push(cacheObj);
-    }
     if(key !== 'userList'){
       data.push(cacheObj);
+    } else {
+      data = res;
+      data.unshift(cacheObj);
     }
   } else {
     data = [];

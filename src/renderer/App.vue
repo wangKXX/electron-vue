@@ -3,6 +3,18 @@
     <router-view></router-view>
   </div>
 </template>
+<script>
+export default {
+  created() {
+    // this.$electron.ipcRenderer.sendSync('getIp');
+    // this.$electron.ipcRenderer.on('getIp', (e, args) => {
+    //   const { ip } = args;
+    //   console.log(ip, 'ip1')
+    //   window.IP = ip;
+    // });
+  }
+}
+</script>
 <style>
   /* CSS */
   html,body,#app{

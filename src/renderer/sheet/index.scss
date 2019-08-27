@@ -1,3 +1,16 @@
+
+
+$--color-primary: '#67C23A';
+$--color-primary-green: '#409EFF'; 
+@mixin color_primary($color){
+  color:$color;
+   
+  [data-theme="green"] & {
+    color:$color-primary-green;
+  }
+}
+
+@import '~element-ui/lib/theme-chalk/index.css';
 .el-collapse-item__header{
   height: 28px;
   line-height: 28px;
@@ -10,4 +23,18 @@
   font-size: 20px;
   padding: 2px 7px;
   font-weight: 200;
+}
+.el-collapse-item__content{
+  padding-bottom: 0;
+}
+.el-collapse-item__header{
+  padding-left: 15px;
+}
+.el-collapse{
+  border: 0;
+}
+.el-badge{
+  position: absolute;
+  top: -8px;
+  right: -8px;
 }

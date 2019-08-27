@@ -1,11 +1,14 @@
 <template>
   <div class="right-mean">
-    <div class="userinfo">
+    <div class="userinfo" v-if="selectUser.id">
       <div class="ico">
         <img :src="selectUser.icon | urlPatten">
       </div>
       <div class="nick">{{ selectUser.nick }}</div>
       <el-button type="success" @click="handlerClick(selectUser)">发消息</el-button>
+    </div>
+    <div v-else>
+      查看好友
     </div>
   </div>
 </template>
@@ -28,7 +31,7 @@ export default {
           content: ''
         }
       };
-      this.SET_CURRENT_SESSION(userinfo);
+      // this.SET_CURRENT_SESSION(userinfo);
       this.$store.dispatch('userList/SET_HISTRY_CACHE', []);
       this.$electron.ipcRenderer.send('dealCache', {type: 2, key: 'userList', data: userinfo});
       this.$electron.ipcRenderer.send("dealCache", {

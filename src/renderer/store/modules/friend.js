@@ -1,3 +1,4 @@
+import pinying from '../../utils/pinyin'
 const state = {
   friendList: [],
   selectUser: {}
@@ -12,17 +13,24 @@ const mutations = {
   },
   clearFriend (state) {
     state.selectUser = {};
+    state.friendList = [];
   }
 }
 
 const actions = {
   SET_SELECT_USER ({ commit }, params) {
-    console.log(params, '>>>>>');
     commit('SET_SELECT_USER', params);
   },
   SET_USER_LIST ({ commit }, params) {
-    // params = friendList;
-    commit('SET_USER_LIST', params)
+    const mkResoult = params.reduce((init, curr) => {
+      const code = pinying(curr.nick);
+      if (!init[code]) {
+        init[code] = [];
+      }
+      init[code].push(curr);
+      return init;
+    }, {})
+    commit('SET_USER_LIST', mkResoult);
   },
   clearFriend({ commit }) {
     commit('clearFriend')

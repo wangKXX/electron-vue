@@ -31,7 +31,7 @@ export default {
         },
         type: "re_add"
       };
-      console.log(this.user, "user", this.userInfo);
+      console.log(this.userInfo);
       window.Io.send(JSON.stringify(mesgContent));
     }
   }
