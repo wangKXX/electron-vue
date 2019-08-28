@@ -21,8 +21,8 @@ export default {
   components: { mean, commonHeader },
   data() {
     return {
-      copyUserInfo: ''
-    }
+      copyUserInfo: ""
+    };
   },
   computed: {
     ...mapState("userList", ["currentSession"]),
@@ -32,7 +32,7 @@ export default {
     ...mapActions("userList", ["SET_HISTRY_CACHE", "clearUserList"]),
     ...mapActions("friend", ["clearFriend"]),
     ...mapActions("userInfo", ["clearUserInfo"]),
-    ...mapActions("addTask", ["_set_addTask", '_deltel_task']),
+    ...mapActions("addTask", ["_set_addTask", "_deltel_task"]),
     async handlerMessage(data) {
       const { type, re, mesg } = data;
       if (type === "pong") {
@@ -42,20 +42,20 @@ export default {
       if (type === "add") {
         this._set_addTask(data);
       } else {
-        if (type === 'addSucess') {
+        if (type === "addSucess") {
           // 接收到添加成功消息后1.重新获取好友列表
           const result = await this.Api.getUserList(this.userInfo.id);
           const {
-                data: { status, message, data }
-              } = result;
+            data: { status, message, data }
+          } = result;
           if (status === 0) {
             this.$store.dispatch("friend/SET_USER_LIST", data);
           }
           // 添加成功后删除添加任务
           this._deltel_task(re.id);
-          this.$store.dispatch('userList/SET_CURRENT_SESSION', re);
-          this.$router.push({path: '/chat'});
-        } 
+          this.$store.dispatch("userList/SET_CURRENT_SESSION", re);
+          this.$router.push({ path: "/chat" });
+        }
         if (re.id === this.currentSession.id) {
           this.SET_HISTRY_CACHE({
             type: 1,
@@ -75,31 +75,31 @@ export default {
           });
         }
         const userInfo = {
-            id: re.id,
-            nick: re.nick,
-            icon: re.icon,
-            des: re.des,
-            lastMsg: {
-              date: mesg.time,
-              content: mesg.content
-            }
-          };
-          this.copyUserInfo = userInfo;
-          re.id !== this.currentSession.id && (userInfo.badge=true);
-          this.$electron.ipcRenderer.send("dealCache", {
-            type: 2,
-            key: "userList",
-            data: userInfo
-          });
-          this.$electron.ipcRenderer.send("dealCache", {
-            type: 1,
-            key: "userList"
-          });
+          id: re.id,
+          nick: re.nick,
+          icon: re.icon,
+          des: re.des,
+          lastMsg: {
+            date: mesg.time,
+            content: mesg.content
+          }
+        };
+        this.copyUserInfo = userInfo;
+        re.id !== this.currentSession.id && (userInfo.badge = true);
+        this.$electron.ipcRenderer.send("dealCache", {
+          type: 2,
+          key: "userList",
+          data: userInfo
+        });
+        this.$electron.ipcRenderer.send("dealCache", {
+          type: 1,
+          key: "userList"
+        });
       }
     }
   },
   created() {
-    window.IP = '10.45.215.231';
+    window.IP = "10.45.215.231";
     this.$electron.ipcRenderer.send("dealCache", { type: 1, key: "userInfo" });
     this.$electron.ipcRenderer.on("dealCacheResp", (e, args) => {
       const { key, data } = args;
@@ -112,7 +112,7 @@ export default {
           cb: this.handlerMessage
         });
         window.Io = Io;
-      };
+      }
       if (key === "userList") {
         // 获取历史记录列表
         this.$store.dispatch("userList/SET_USER_LIST", data || []);
@@ -121,16 +121,23 @@ export default {
           "userList/SET_CURRENT_SESSION",
           currentSession || {}
         );
-      };
+      }
     });
-    this.$electron.ipcRenderer.on('isWinMin', (e, args) => {
+    this.$electron.ipcRenderer.on("isWinMin", (e, args) => {
       if (args) {
-        let myNotification = new Notification(`${this.copyUserInfo.nick}`, {
-          body: `${this.copyUserInfo.lastMsg.content}`,
-          dir: 'rtl'
-        })
-        myNotification.onclick = () => {
-          this.$electron.ipcRenderer.send('showWin');
+        const isMac = (function() {
+          return /macintosh|mac os x/i.test(navigator.userAgent);
+        })();
+        if (isMac) {
+          let myNotification = new Notification(`${this.copyUserInfo.nick}`, {
+            body: `${this.copyUserInfo.lastMsg.content}`,
+            dir: "rtl"
+          });
+          myNotification.onclick = () => {
+            this.$electron.ipcRenderer.send("showWin");
+          };
+        } else {
+          this.$electron.ipcRenderer.send("flashFrame");
         }
       }
     });

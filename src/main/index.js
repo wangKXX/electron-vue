@@ -32,6 +32,7 @@ function createWindow() {
     mainWindow.show();
   });
   mainWindow.setProgressBar(0.5);
+  mainWindow.once('focus', () => mainWindow.flashFrame(false))
 }
 
 app.on('ready', createWindow)
@@ -55,6 +56,10 @@ ipcMain.on('closeClient', (e, args) => {
 ipcMain.on('minClient', e => {
   mainWindow.minimize();
   e.sender.send('minimize', {ip: IP});
+});
+
+ipcMain.on('flashFrame', () => {
+  mainWindow.flashFrame(true);
 });
 
 ipcMain.on('showWin', () => {
