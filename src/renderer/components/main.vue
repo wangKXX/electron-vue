@@ -94,7 +94,6 @@ export default {
   },
   created() {
     window.IP = '10.45.215.231';
-    console.log('main creat')
     this.$electron.ipcRenderer.send("dealCache", { type: 1, key: "userInfo" });
     this.$electron.ipcRenderer.on("dealCacheResp", (e, args) => {
       const { key, data } = args;
@@ -118,11 +117,6 @@ export default {
         );
       }
     });
-  },
-  destroyed() {
-    // this.clearFriend();
-    // this.clearUserList();
-    // this.clearUserInfo();
   }
 };
 </script>
@@ -131,7 +125,6 @@ export default {
   width: 100;
   height: 100%;
   display: flex;
-  // align-items: center;
   justify-content: center;
   .left {
     width: 60px;

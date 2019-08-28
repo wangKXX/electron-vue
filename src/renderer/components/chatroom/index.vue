@@ -37,14 +37,29 @@ export default {
         this.$refs.content &&
           (this.$refs.content.scrollTop = this.$refs.content.scrollHeight);
       }, 50);
+    },
+    currentSession() {
+      if (this.currentSession) {
+        const id = this.currentSession.id
+        this.$electron.ipcRenderer.send("dealCache", {
+          type: 1,
+          key: id
+        });
+        this.$electron.ipcRenderer.on("dealCacheResp", (e, args) => {
+          const { key, data } = args;
+          if (key === id) {
+            this.$store.dispatch("userList/SET_HISTRY_CACHE", data || []);
+          }
+        });
+      }
     }
   },
   methods: {
     ...mapActions("userList", ["SET_HISTRY_CACHE"]),
     handlerMessage() {
-      console.log(this.msg, 'msg')
+      console.log(this.msg, "msg");
       if (!this.msg.trim()) {
-        this.msg = '';
+        this.msg = "";
         return false;
       }
       const { id, nick, icon, des } = this.currentSession;
