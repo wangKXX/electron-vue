@@ -17,12 +17,9 @@ export default class SocketIo {
       clearInterval(this.timer);
       this.timer = setInterval(() => {
         if (this.ws.readyState === 3) {
-          // clearInterval(this.timer);
-          console.log('断开测试')
           this.ws.close();
           this.init();
         } else {
-          console.log('心跳消息开始');
           try {
             this.ws.send(JSON.stringify({ 'userId': this.userId, type: 'ping' }));
           } catch (error) {

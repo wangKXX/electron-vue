@@ -19,6 +19,11 @@ import commonHeader from "@/components/common/common-header";
 import { mapState, mapActions } from "vuex";
 export default {
   components: { mean, commonHeader },
+  data() {
+    return {
+      copyUserInfo: ''
+    }
+  },
   computed: {
     ...mapState("userList", ["currentSession"]),
     ...mapState("userInfo", ["userInfo"])
@@ -79,6 +84,7 @@ export default {
               content: mesg.content
             }
           };
+          this.copyUserInfo = userInfo;
           re.id !== this.currentSession.id && (userInfo.badge=true);
           this.$electron.ipcRenderer.send("dealCache", {
             type: 2,
@@ -106,7 +112,7 @@ export default {
           cb: this.handlerMessage
         });
         window.Io = Io;
-      }
+      };
       if (key === "userList") {
         // 获取历史记录列表
         this.$store.dispatch("userList/SET_USER_LIST", data || []);
@@ -115,6 +121,17 @@ export default {
           "userList/SET_CURRENT_SESSION",
           currentSession || {}
         );
+      };
+    });
+    this.$electron.ipcRenderer.on('isWinMin', (e, args) => {
+      if (args) {
+        let myNotification = new Notification(`${this.copyUserInfo.nick}`, {
+          body: `${this.copyUserInfo.lastMsg.content}`,
+          dir: 'rtl'
+        })
+        myNotification.onclick = () => {
+          this.$electron.ipcRenderer.send('showWin');
+        }
       }
     });
   }
