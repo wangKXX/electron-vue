@@ -62,21 +62,24 @@ export default {
             data
           });
         } else {
-          // 不属于当前绘画的消息处理
+          // 不属于当前会话的消息处理
           this.$electron.ipcRenderer.send("dealCache", {
             type: 2,
             key: re.id,
             data
           });
-          const userInfo = {
+        }
+        const userInfo = {
             id: re.id,
             nick: re.nick,
             icon: re.icon,
+            des: re.des,
             lastMsg: {
               date: mesg.time,
               content: mesg.content
             }
           };
+          re.id !== this.currentSession.id && (userInfo.badge=true);
           this.$electron.ipcRenderer.send("dealCache", {
             type: 2,
             key: "userList",
@@ -86,7 +89,6 @@ export default {
             type: 1,
             key: "userList"
           });
-        }
       }
     }
   },

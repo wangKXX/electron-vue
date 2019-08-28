@@ -42,9 +42,12 @@ export default {
   methods: {
     ...mapActions("userList", ["SET_HISTRY_CACHE"]),
     handlerMessage() {
-      console.log(this.currentSession);
+      console.log(this.msg, 'msg')
+      if (!this.msg.trim()) {
+        this.msg = '';
+        return false;
+      }
       const { id, nick, icon, des } = this.currentSession;
-      console.log(this.userInfo);
       const message = {
         re: this.userInfo,
         user: {

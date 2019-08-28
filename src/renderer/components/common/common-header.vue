@@ -47,7 +47,7 @@ export default {
     },
     handlerRefresh() {
       // this.clearFriend();
-      this.clearUserList();
+      this.clearUserList(false);
       // this.clearUserInfo();
       // this._clear_task();
       this.$electron.ipcRenderer.send("reload");

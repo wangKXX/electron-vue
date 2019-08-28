@@ -1,7 +1,7 @@
 <template>
   <div class="user-item" @click="openChat(user.id)" :class="isActive ? 'active' : ''">
     <div class="user-icon">
-      <el-badge class="item" :value="200" :max="99" :hidden="true"></el-badge>
+      <el-badge class="item" :hidden="!user.badge" is-dot></el-badge>
       <img :src="user.icon | urlPatten" />
     </div>
     <div class="user-msg">
@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     openChat(id) {
+      if (id === this.currentSession.id) return false;
       const user = this.user;
       const userinfo = {
         id: user.id,
@@ -84,12 +85,15 @@ export default {
   .user-msg {
     padding-left: 12px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     min-width: 0; // flex布局下white-space bug
     .user-histroy {
       width: 100%;
       padding-right: 12px;
       color: #999;
-      font-size: 10px;
+      font-size: 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

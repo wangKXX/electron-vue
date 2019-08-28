@@ -18,9 +18,9 @@ const mutations = {
       state.histryCache = val
     }
   },
-  clearUserList (state) {
+  clearUserList (state, isClearSession) {
     state.userList = [];
-    state.currentSession = null;
+    isClearSession && (state.currentSession = null);
     state.histryCache = [];
   }
 }
@@ -35,8 +35,8 @@ const actions = {
   SET_HISTRY_CACHE({ commit }, params) {
     commit('SET_HISTRY_CACHE', params);
   },
-  clearUserList({ commit }) {
-    commit('clearUserList');
+  clearUserList({ commit }, isClearSession = true) {
+    commit('clearUserList', isClearSession);
   }
 }
 
