@@ -1,7 +1,7 @@
 {
   "name": "my-project",
   "version": "1.0.0",
-  "author": "kai.wang <kai.wang@baozun.com>",
+  "author": "wangKAI",
   "description": "An electron-vue project",
   "license": null,
   "main": "./dist/electron/main.js",
